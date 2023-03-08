@@ -1,15 +1,17 @@
 package Entitites;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
-import EstruturaDeDados.ListaEncadeada;
+import javax.swing.JOptionPane;
 
 public class Agenda {
 
-	private ListaEncadeada<Contato> contatos = new ListaEncadeada<>();
+	private List<Contato> contatos = new ArrayList<>();
 	
-	public ListaEncadeada<Contato> getContatos() {
+	public List<Contato> getContatos() {
 		return contatos;
 	}
 
@@ -18,17 +20,13 @@ public class Agenda {
 	}
 	
 	public void remover(String nomeContato) {
-		if(contatos.isEmpty()) {
-			throw new RuntimeException("Lista Vazia");
-		}
-		
 		for(int contador = 0; contador < contatos.size(); contador++) {
 			String contatoAtual = removerAcentos(contatos.get(contador).getNome());
 			String contatoRecebido = removerAcentos(nomeContato);
 			
 			if(contatoAtual.equalsIgnoreCase(contatoRecebido)) {
 				contatos.remove(contador);
-				System.out.println("Contato Excluido");
+				JOptionPane.showMessageDialog(null, "Contato Excluido Com Sucesso", "Requisição Concluida", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
 		}
@@ -83,9 +81,9 @@ public class Agenda {
 	public boolean verificarTamanhoNumero(String numero) {
 		if (numero.length() > 11 || numero.length() < 11){
 		      return true;
-		   }else{
+		}else{
 		      return false;
-		   }
+		}
 	}
 	
 	public boolean verificarSePossuiSomenteNumero(String numero) {
